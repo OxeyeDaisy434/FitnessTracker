@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
-@Table(name = "healthmetrics")
+@Table(name = "health_metrics")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
@@ -23,8 +23,8 @@ public class healthmetrics {
     @Nullable
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(name = "date", nullable = false)
@@ -39,16 +39,18 @@ public class healthmetrics {
     @Column(name = "heartRate", nullable = false)
     private double heartRate;
 
-
     public healthmetrics(
-            final User user, final Date date, final double weight, final double height, final double heartRate) {
+            final User user,
+            final Date date,
+            final double weight,
+            final double height,
+            final double heartRate) {
 
         this.user = user;
         this.date = date;
         this.weight = weight;
         this.height = height;
         this.heartRate = heartRate;
-
     }
 
 }
