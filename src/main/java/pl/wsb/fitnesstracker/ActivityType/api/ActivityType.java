@@ -19,7 +19,7 @@ public class ActivityType {
     @Nullable
     private Long id;
 
-    @JoinColumn(name = "activityType")
+    @JoinColumn(name = "activityType", nullable = false)
     private String activityType;
 
     public ActivityType(
