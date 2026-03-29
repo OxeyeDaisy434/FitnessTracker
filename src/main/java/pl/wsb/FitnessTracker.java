@@ -13,7 +13,7 @@ public class FitnessTracker {
     public static void main(String[] args) {
         SpringApplication.run(FitnessTracker.class, args);
         System.out.println("Link do aplikacji: http://localhost:8091/h2-console");
-        System.out.println("zmiana by zrobić push");
+        System.out.println("zmiana by zrobić push2");
     }
 
 }
