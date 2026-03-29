@@ -8,7 +8,7 @@ Laboratorium 02 - Relacje w JPA - stan na 27.03.2026
    `resources/JPA/LAB02/github-ci-cd.yml`(src/main/resources/general/github-ci-cd.yml).
    Plik powinien zostać umieszczony pod `.github/workflows/github-ci-cd.yml`
 3. Scommituj zmiany i wyślij je do swojego repozytorium. Zweryfikuj czy projekt poprawnie się buduje na Github (zakładka
-   Actions)
+   Actions) - nie
 4. Przenieś klasę DatabaseSchemaTest.java z folderu resources/JPA/LAB02/DatabaseSchemaTest do katalogu testowego
    `src/test/java/pl/wsb/fitnesstracker`.
 5. Scommituj zmiany i wyślij je do swojego repozytorium.
