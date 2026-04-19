@@ -1,7 +1,6 @@
 package pl.wsb.fitnesstracker.healthmetrics.api;
 
 import jakarta.annotation.Nullable;
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,32 +8,23 @@ import lombok.ToString;
 import pl.wsb.fitnesstracker.user.api.User;
 
 import java.util.Date;
-
 // usunieta tabela
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class healthmetrics {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Nullable
     private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "weight", nullable = false)
     private double weight;
 
-    @Column(name = "height", nullable = false)
     private double height;
 
-    @Column(name = "heartRate", nullable = false)
     private double heartRate;
 
     public healthmetrics(
