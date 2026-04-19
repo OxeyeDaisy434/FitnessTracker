@@ -14,7 +14,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query(
             value = "SELECT e.name AS eventName, COUNT(ue.id) AS participantCount " +
-                    "FROM events e LEFT JOIN user_event ue ON e.id = ue.event_id " +
+                    "FROM event e LEFT JOIN user_event ue ON e.id = ue.event_id " +
                     "GROUP BY e.id, e.name ORDER BY e.name",
             nativeQuery = true
     )
