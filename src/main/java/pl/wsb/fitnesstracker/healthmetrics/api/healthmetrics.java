@@ -8,11 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import pl.wsb.fitnesstracker.user.api.User;
 
-import java.time.LocalDate;
 import java.util.Date;
 
-@Entity
-@Table(name = "health_metrics")
+// usunieta tabela
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
