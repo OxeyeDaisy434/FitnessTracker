@@ -9,12 +9,17 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import pl.wsb.fitnesstracker.event.Event;
+import pl.wsb.fitnesstracker.event.EventRepository;
+import pl.wsb.fitnesstracker.event.UserEvent;
+import pl.wsb.fitnesstracker.event.UserEventRepository;
 import pl.wsb.fitnesstracker.training.api.Training;
 import pl.wsb.fitnesstracker.training.internal.ActivityType;
 import pl.wsb.fitnesstracker.user.api.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +41,10 @@ class InitialDataLoader {
 
     private final JpaRepository<Training, Long> trainingRepository;
 
+    private final EventRepository eventRepository;
+
+    private final UserEventRepository userEventRepository;
+    
     @EventListener
     @Transactional
     @SuppressWarnings({"squid:S1854", "squid:S1481", "squid:S1192", "unused"})
@@ -45,17 +54,28 @@ class InitialDataLoader {
         log.info("Loading initial data to the database");
 
         List<User> sampleUserList = generateSampleUsers();
+        
         List<Training> sampleTrainingList = generateTrainingData(sampleUserList);
+        
+        List<Event> sampleEventList = generateSampleEvents();
+        eventRepository.saveAll(sampleEventList);
+        
+        generateUserEventData(sampleUserList, sampleEventList);
 
+        log.info("Events z uczestnikami:");
+        eventRepository.findEventNamesWithParticipantCount().forEach(row ->
+                log.info("event={}, uczestnicy={}", row[0], row[1]));
 
+        log.info("nadchodzace events: {}", eventRepository.findUpcoming(LocalDateTime.now()).size());
         log.info("Finished loading initial data");
     }
 
     private User generateUser(String name, String lastName, int age) {
         User user = new User(name,
                 lastName,
-                now().minusYears(age),
+                now().minusYears(age), 
                 "%s.%s@domain.com".formatted(name, lastName));
+       
         return userRepository.save(user);
     }
 
@@ -162,8 +182,29 @@ class InitialDataLoader {
         return trainingData;
     }
 
+    private List<Event> generateSampleEvents() {
+        List<Event> events = new ArrayList<>();
+
+        events.add(new Event("Wiosenny maraton", LocalDateTime.now().plusDays(30), "Warszawa"));
+        events.add(new Event("Jesienna przejazdzka", LocalDateTime.now().plusDays(60), "Krakow"));
+        events.add(new Event("Zimowe plywanie", LocalDateTime.now().minusDays(10), "Gdansk"));
+
+        return events;
+    }
+
+    private void generateUserEventData(List<User> users, List<Event> events) {
+        List<UserEvent> registrations = new ArrayList<>();
+
+        registrations.add(new UserEvent(users.get(0), events.get(0), LocalDateTime.now().minusDays(2)));
+        registrations.add(new UserEvent(users.get(1), events.get(0), LocalDateTime.now().minusDays(1)));
+        registrations.add(new UserEvent(users.get(2), events.get(1), LocalDateTime.now().minusDays(3)));
+        registrations.add(new UserEvent(users.get(3), events.get(1), LocalDateTime.now().minusDays(2)));
+
+        userEventRepository.saveAll(registrations);
+    }
+
     private void verifyDependenciesAutowired() {
-        if (isNull(userRepository)) {
+        if (isNull(userRepository) || isNull(trainingRepository) || isNull(eventRepository) || isNull(userEventRepository)) {
             throw new IllegalStateException("Initial data loader was not autowired correctly " + this);
         }
     }
