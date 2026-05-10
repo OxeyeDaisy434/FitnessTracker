@@ -47,11 +47,11 @@ class UserApiIntegrationTest extends IntegrationTestBase {
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$[0].firstName").value(user1.getFirstName()))
                 .andExpect(jsonPath("$[0].lastName").value(user1.getLastName()))
-                .andExpect(jsonPath("$[0].birthdate").value(ISO_DATE.format(user1.getBirthdate())))
+                .andExpect(jsonPath("$[0].birthdate").value(ISO_DATE.format(user1.getBirthday())))
 
                 .andExpect(jsonPath("$[1].firstName").value(user2.getFirstName()))
                 .andExpect(jsonPath("$[1].lastName").value(user2.getLastName()))
-                .andExpect(jsonPath("$[1].birthdate").value(ISO_DATE.format(user2.getBirthdate())))
+                .andExpect(jsonPath("$[1].birthdate").value(ISO_DATE.format(user2.getBirthday())))
 
                 .andExpect(jsonPath("$[2]").doesNotExist());
     }
@@ -84,7 +84,7 @@ class UserApiIntegrationTest extends IntegrationTestBase {
                 .andExpect(jsonPath("$").isNotEmpty())
                 .andExpect(jsonPath("$.firstName").value(user1.getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(user1.getLastName()))
-                .andExpect(jsonPath("$.birthdate").value(ISO_DATE.format(user1.getBirthdate())))
+                .andExpect(jsonPath("$.birthdate").value(ISO_DATE.format(user1.getBirthday())))
                 .andExpect(jsonPath("$.email").value(user1.getEmail()));
 
     }
@@ -113,7 +113,7 @@ class UserApiIntegrationTest extends IntegrationTestBase {
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$[0].firstName").value(user1.getFirstName()))
                 .andExpect(jsonPath("$[0].lastName").value(user1.getLastName()))
-                .andExpect(jsonPath("$[0].birthdate").value(ISO_DATE.format(user1.getBirthdate())))
+                .andExpect(jsonPath("$[0].birthdate").value(ISO_DATE.format(user1.getBirthday())))
 
                 .andExpect(jsonPath("$[1]").doesNotExist());
     }
@@ -167,7 +167,7 @@ class UserApiIntegrationTest extends IntegrationTestBase {
 
         assertThat(user.getFirstName()).isEqualTo(USER_NAME);
         assertThat(user.getLastName()).isEqualTo(USER_LAST_NAME);
-        assertThat(user.getBirthdate()).isEqualTo(LocalDate.parse(USER_BIRTHDATE));
+        assertThat(user.getBirthday()).isEqualTo(LocalDate.parse(USER_BIRTHDATE));
         assertThat(user.getEmail()).isEqualTo(USER_EMAIL);
 
     }
@@ -205,7 +205,7 @@ class UserApiIntegrationTest extends IntegrationTestBase {
 
         assertThat(user.getFirstName()).isEqualTo(USER_NAME);
         assertThat(user.getLastName()).isEqualTo(USER_LAST_NAME);
-        assertThat(user.getBirthdate()).isEqualTo(LocalDate.parse(USER_BIRTHDATE));
+        assertThat(user.getBirthday()).isEqualTo(LocalDate.parse(USER_BIRTHDATE));
         assertThat(user.getEmail()).isEqualTo(USER_EMAIL);
     }
 
