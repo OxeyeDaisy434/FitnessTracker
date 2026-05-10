@@ -34,7 +34,7 @@ class UserController {
         return null;
     }
 
-    @GetMapping
+    @GetMapping("/getUser")
     public List<UserDto> getUsers() throws InterruptedException {
 
        return this.userProvider.findAllUsers().stream()
