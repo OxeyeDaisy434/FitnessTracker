@@ -63,8 +63,16 @@ class InitialDataLoader {
         generateUserEventData(sampleUserList, sampleEventList);
 
         log.info("Events z uczestnikami:");
-        eventRepository.findEventNamesWithParticipantCount().forEach(row ->
-                log.info("event={}, uczestnicy={}", row[0], row[1]));
+        if (!sampleEventList.isEmpty()) {
+            Long eventId = sampleEventList.get(0).getId();
+            log.info("Event ID: {}", eventId);
+            Object[] result = eventRepository.findEventNameWithParticipantCount(eventId);
+            if (result != null && result.length >= 2) {
+                log.info("event={}, uczestnicy={}", result[0], result[1]);
+            } else {
+                log.info("Brak danych dla eventu ID: {}", eventId);
+            }
+        }
 
         log.info("nadchodzace events: {}", eventRepository.findUpcoming(LocalDateTime.now()).size());
         log.info("Finished loading initial data");
