@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import pl.wsb.fitnesstracker.event.UserEvent;
 import pl.wsb.fitnesstracker.training.api.Training;
 import pl.wsb.fitnesstracker.user.api.User;
 
@@ -21,13 +22,16 @@ public abstract class IntegrationTestBase {
     @Autowired
     private JpaRepository<Training, Long> trainingRepository;
 
+    @Autowired
+    private JpaRepository<UserEvent, Long> userEventRepository;
+
     @AfterEach
     void cleanUp() {
         cleanDatabase();
-
     }
 
     private void cleanDatabase() {
+        userEventRepository.deleteAll();
         trainingRepository.deleteAll();
         userRepository.deleteAll();
     }

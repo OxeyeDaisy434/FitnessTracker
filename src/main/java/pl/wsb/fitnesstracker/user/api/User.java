@@ -45,5 +45,50 @@ public class User {
         this.email = email;
     }
 
+    /**
+     * gettery
+     */
+    public Long getId() {
+        return id;
+    }
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    /**
+     * settery
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }
 
